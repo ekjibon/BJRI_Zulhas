@@ -1,0 +1,59 @@
+-- MySQL dump 10.13  Distrib 8.0.21, for Win64 (x86_64)
+--
+-- Host: localhost    Database: bjri_salary
+-- ------------------------------------------------------
+-- Server version	8.0.21
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!50503 SET NAMES utf8 */;
+/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
+/*!40103 SET TIME_ZONE='+00:00' */;
+/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
+/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
+/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
+/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
+
+--
+-- Table structure for table `leavetype`
+--
+
+DROP TABLE IF EXISTS `leavetype`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `leavetype` (
+  `Id` int NOT NULL AUTO_INCREMENT,
+  `CreatedById` varchar(767) DEFAULT NULL,
+  `CreatedDateTime` datetime NOT NULL,
+  `UpdatedById` varchar(767) DEFAULT NULL,
+  `UpdatedDateTime` datetime DEFAULT NULL,
+  `Name` text,
+  PRIMARY KEY (`Id`),
+  KEY `IX_LeaveType_CreatedById` (`CreatedById`),
+  KEY `IX_LeaveType_UpdatedById` (`UpdatedById`),
+  CONSTRAINT `FK_LeaveType_AspNetUsers_CreatedById` FOREIGN KEY (`CreatedById`) REFERENCES `aspnetusers` (`Id`) ON DELETE RESTRICT,
+  CONSTRAINT `FK_LeaveType_AspNetUsers_UpdatedById` FOREIGN KEY (`UpdatedById`) REFERENCES `aspnetusers` (`Id`) ON DELETE RESTRICT
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `leavetype`
+--
+
+LOCK TABLES `leavetype` WRITE;
+/*!40000 ALTER TABLE `leavetype` DISABLE KEYS */;
+INSERT INTO `leavetype` VALUES (1,NULL,'0001-01-01 00:00:00',NULL,NULL,'নৈমিত্তিক'),(2,NULL,'0001-01-01 00:00:00',NULL,NULL,'অসুস্থতাজনিত'),(3,NULL,'0001-01-01 00:00:00',NULL,NULL,'অর্জিত'),(4,NULL,'0001-01-01 00:00:00',NULL,NULL,'অসাধারণ'),(5,NULL,'0001-01-01 00:00:00',NULL,NULL,'অধ্যয়ন'),(6,NULL,'0001-01-01 00:00:00',NULL,NULL,'সংগনিরোধ'),(7,NULL,'0001-01-01 00:00:00',NULL,NULL,'প্রসূতি'),(8,NULL,'0001-01-01 00:00:00',NULL,NULL,'প্রাপ্যতাবিহীন'),(9,NULL,'0001-01-01 00:00:00',NULL,NULL,'অবসর উত্তর'),(10,NULL,'0001-01-01 00:00:00',NULL,NULL,'ঐচ্ছিক'),(11,NULL,'0001-01-01 00:00:00',NULL,NULL,'শ্রান্তি ও বিনোদন'),(12,NULL,'0001-01-01 00:00:00',NULL,NULL,'অক্ষমতাজনিত বিশেষ'),(13,NULL,'0001-01-01 00:00:00',NULL,NULL,'বাধ্যতামূলক'),(14,NULL,'0001-01-01 00:00:00',NULL,NULL,'বিনা বেতনে');
+/*!40000 ALTER TABLE `leavetype` ENABLE KEYS */;
+UNLOCK TABLES;
+/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
+
+/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
+/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
+/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
+
+-- Dump completed on 2023-02-27 13:21:34
