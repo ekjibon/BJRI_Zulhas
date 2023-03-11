@@ -1,0 +1,65 @@
+﻿@model LMS_Web.Areas.Settings.Models.ChildrenInfo
+
+@{
+    ViewData["Title"] = "Add";
+}
+
+
+
+
+<div class="row justify-content-center mt-4 mb-2">
+    <div class="col-md-6">
+        <form method="post" asp-action="Add" class="form-signin create-form bg-white rounded border shadow-sm p-4">
+            <div class="text-center mb-4">
+                <h1 class="h5 mb-3 font-weight-bold">Children Information Setup</h1>
+            </div>
+            <input type="hidden" id="id" asp-for="Id" class="form-control" />
+           @* <div id="MessageDiv" style="text-align: center;">
+                <label style="color:green"><span id="SuccessMessageDiv">@ViewBag.SuccessMessage</span></label>
+                <label style="color:red"><span id="ErrorMessageDiv" style="color: red">@ViewBag.ErrorMessage</span></label>
+            </div>*@
+            <div class="form-group">
+                <label class="control-label">User Name</label>
+                @Html.DropDownList("AppUserId", new SelectList(ViewBag.Users, "Id", "FullName"), "Select User", new { @class = "form-control", @required = "required", @onchange="LoadStation()" })
+            </div>
+            <div class="form-group">
+                <label  class="control-label">Children Name</label>
+                <input required="required" asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label  class="control-label">ChidrenDateOfBirth</label>
+                <input required="required" asp-for="DateOfBirth" type="date" class="form-control" />
+                <span asp-validation-for="DateOfBirth" class="text-danger"></span>
+            </div>
+             <div class="form-group">
+                <input type="checkbox" id="isFixed"  asp-for="IsApprove">
+                <label asp-for="IsApprove" class="control-label"></label>
+            </div>
+            <div class="form-group">
+                <label asp-for="ApproveDate" class="control-label"></label>
+                <input required="required" asp-for="ApproveDate" type="date"  class="form-control" />
+                <span asp-validation-for="ApproveDate" class="text-danger"></span>
+            </div>
+            <div class="form-group mt-4 text-center">
+                <a class="btn btn-secondary" asp-action="List">List</a>
+                <input type="submit" name="btnValue" id="submitBtn" value="Save" class="btn btn-primary" />
+            </div>
+            
+        </form>
+    </div>
+</div>
+@section Scripts
+    {
+    <script>
+        $(document).ready(function () {
+            $("#ChildrenInfo").css("display", "block");
+            var id = $("#id").val();
+            if (id != 0) {
+                $("#submitBtn").val("Update");
+            }
+
+        });
+
+    </script>
+}

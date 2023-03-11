@@ -1,0 +1,34 @@
+﻿@model LMS_Web.Areas.Settings.Models.UserTax
+
+<div class="table-responsive">
+    <table class="table table-striped table-borderless custrom-table mb-2" id="table">
+        <thead>
+            <tr>
+                <th>Total Amount</th>
+                <th>Remaining Amount</th>
+                <th>Deducted Amount</th>
+                <th>Monthly Deduction</th>
+                <th>Total Installment</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+
+                <td>@(Model?.TotalAmount ?? 0)</td>
+                <td>@(Model?.TotalAmount - Model?.DeductedAmount)</td>
+                <td>@(Model?.DeductedAmount ?? 0)</td>
+                <td>@(Model?.MonthlyDeduction ?? 0)</td>
+                <td>@(Model?.TotalInstallment ?? 0)</td>
+            </tr>
+
+        </tbody>
+    </table>
+</div>
+@section scripts{
+    <script>
+        $(document).ready(function () {
+            $("#Tax").css('display', 'block');
+            $('#table').DataTable();
+        });
+    </script>
+}

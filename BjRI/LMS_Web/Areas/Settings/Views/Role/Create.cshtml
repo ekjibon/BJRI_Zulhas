@@ -1,0 +1,100 @@
+﻿@model IEnumerable<LMS_Web.Areas.Settings.ViewModels.RolesVm>
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Areas/Settings/Views/Shared/_Layout.cshtml";
+}
+
+
+
+<div id="MessageDiv" style="text-align: center;">
+    <label style="color:green"><span id="SuccessMessageDiv">@ViewBag.SuccessMessage</span></label>
+    <label style="color:red"><span id="ErrorMessageDiv" style="color: red">@ViewBag.ErrorMessage</span></label>
+</div>
+@*@using (Html.BeginForm("CreateRole", "Role", FormMethod.Post))
+{*@
+<div class="row justify-content-center mt-4 mb-2">
+    <div class="col-md-6">
+    <form method="post" asp-action="CreateRole" class="form-signin create-form bg-white rounded border shadow-sm p-5">
+    @*<div class="shadow bg-light m-0 rounded">
+        <h4 class="title-2 text-center py-5">@ViewBag.Title</h4>
+        <div class="row mx-3 pb-5">
+            <div class="col-md-2"></div>
+            <div class="col-md-6 m-auto">
+                <div class="input-group">
+                    <label class="col-md-3">Name</label>
+                    <div class="col-md-9">
+                        <input type="text" name="roleName" required="required" class="form-control" />
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-2">
+                <input type="submit" class="btn btn-primary float-right mr-3" name="btnValue" value="save" id="submitBtn" />
+            </div>
+            <div class="col-md-2"></div>
+        </div>
+    </div>*@
+  
+             <div class="input-group">
+                    <label class="col-md-3">Name</label>
+                    <div class="col-md-9">
+                        <input type="text" name="roleName" required="required" class="form-control" />
+                    </div>
+                </div>
+           
+             <div class="form-group mt-4 text-center">
+                
+                <input type="submit" class="btn btn-primary float-right mr-3" name="btnValue" value="save" id="submitBtn" />
+            </div>
+    </form>
+     </div>
+</div>
+@*}*@
+<br />
+@if (Model.Any())
+{
+    int i = 1;
+    <div class="table-responsive custom-table table--no-card bg-light p-4">
+        <h4 class="title-2 text-center mt-4 mb-4">List</h4>
+        <table class="table table-striped table-borderless custrom-table mb-2" id="roleTable">
+            <thead>
+                <tr>
+                    <th>Sl</th>
+                    <th>Role Name</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@(i++)</td>
+                        <td>@item.Name</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+}
+@section Scripts
+    {
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("#roleTable").DataTable();
+
+            $("#Settings").addClass('open');
+            $(".Settings").css('display', 'block');
+            $("#AddRole").addClass('active');
+            ToggleShowHide()
+        })
+        function ToggleShowHide() {
+            var success = $("#SuccessMessageDiv").html();
+            var error = $("#ErrorMessageDiv").html();
+
+            if (!(success == '' && error == '')) {
+                setTimeout(function () {
+                    $("#MessageDiv").toggle("hide");
+                },
+                    300000);
+            }
+        }
+    </script>
+}

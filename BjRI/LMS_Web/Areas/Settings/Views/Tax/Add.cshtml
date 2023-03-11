@@ -1,0 +1,109 @@
+﻿@model LMS_Web.Areas.Settings.Models.UserTax
+@{
+    ViewData["Title"] = "Add";
+    Layout = "~/Areas/Settings/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row justify-content-center mt-4 mb-2">
+
+    <div class="col-md-6">
+        <form method="post" asp-action="Add" class="form-signin create-form bg-white rounded border shadow-sm p-4">
+            <div class="text-center mb-4 card">
+                <h1 class="h5 mb-3 font-weight-bold">User Tax Setup</h1>
+            </div>
+
+            <div id="MessageDiv" style="text-align: center;">
+                <label style="color:green"><span id="SuccessMessageDiv">@ViewBag.SuccessMessage</span></label>
+                <label style="color:red"><span id="ErrorMessageDiv" style="color: red">@ViewBag.ErrorMessage</span></label>
+            </div>
+            <div class="row">
+                <div class="col-6">
+                    <div class="form-group">
+                        <label class="control-label">Start Month</label>
+                        <select name="month" class="form-control" tabindex="10">
+                            <option value="1">January</option>
+                            <option value="2">February</option>
+                            <option value="3">March</option>
+                            <option value="4">April</option>
+                            <option value="5">May</option>
+                            <option value="6">June</option>
+                            <option value="7">July</option>
+                            <option value="8">August</option>
+                            <option value="9">September</option>
+                            <option value="10">October</option>
+                            <option value="11">November</option>
+                            <option value="12">December</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label">Start Year</label>
+                        <select id="ddlYears" name="year" class="form-control"></select>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label">Fiscal Year</label>
+                        <select asp-for="FiscalYearId" class="form-control" asp-items="ViewBag.FiscalYear" tabindex="10">
+                            <option>Select Fiscal Year</option>
+                        </select>
+                    </div>
+
+
+                </div>
+                <div class="col-6">
+                    <div class="form-group">
+                        <label class="control-label">User</label>
+                        @Html.DropDownList("AppUserId", new SelectList(ViewBag.Users, "Id", "FullName"), "Select User", new { @class = "form-control", @required = "required", @onchange = "LoadTax()" })
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label">Total Amount</label>
+                        <input asp-for="TotalAmount" class="form-control" required type="number" />
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label">Total Installment</label>
+                        <input asp-for="TotalInstallment" required class="form-control" />
+                    </div>
+                </div>
+            </div>
+            <div class="form-group"></div>
+            <div class="form-group mt-4 text-center">
+                <input type="submit" name="btnValue" id="submitBtn" value="Save" class="btn btn-primary form-control" />
+            </div>
+        </form>
+    </div>
+</div>
+<div style="overflow: auto" id="taxView"></div>
+@section scripts
+    {
+    <script>
+        $(document).ready(function () {
+            $("#Tax").css('display', 'block');
+        });
+
+        $(function () {
+            $("#AppUserId").select2();
+        });
+
+        var currentYear = (new Date()).getFullYear() + 12;
+        var ddlYears = document.getElementById("ddlYears");
+
+        for (var i = 2010; i <= currentYear; i++) {
+            var option = document.createElement("OPTION");
+            option.innerHTML = i;
+            option.value = i;
+            ddlYears.appendChild(option);
+        }
+
+        function LoadTax() {
+            var userId = $("#AppUserId").val();
+            $.ajax({
+                type: "GET",
+                url: "/Settings/Tax/LoadUserTax",
+                data: { userId: userId },
+                success: function (res) {
+                    $("#taxView").html("");
+                    $("#taxView").append(res);
+
+                }
+            });
+        }
+    </script>
+}

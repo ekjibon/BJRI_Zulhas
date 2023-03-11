@@ -1,0 +1,17 @@
+﻿<div class="sb-sidenav-menu">
+    <div class="nav">
+        @foreach (var item in Model)
+        {
+
+            @foreach (var sub in item.SubMenuLists)
+            {
+                <a class="nav-link" asp-area="CPF" asp-action="@sub.ActionName" asp-controller="@sub.ControllerName">
+                    <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
+                    @sub.Name
+                </a>
+
+            }
+
+        }
+    </div>
+</div>
